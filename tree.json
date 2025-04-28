@@ -1,0 +1,38 @@
+[
+    {
+        "id": "3453c91c-b74f-4720-bfc5-0887c11af048",
+        "data": "build a personal website",
+        "parent": null,
+        "status": "Not Started"
+    },
+    {
+        "id": "6d49718b-6a76-48a4-9054-b8f6c636ad3a",
+        "data": "design ui",
+        "parent": "3453c91c-b74f-4720-bfc5-0887c11af048",
+        "status": "Not Started"
+    },
+    {
+        "id": "1e771a65-6cb5-4a5d-90cf-b3da8fdfc012",
+        "data": "write content",
+        "parent": "3453c91c-b74f-4720-bfc5-0887c11af048",
+        "status": "Not Started"
+    },
+    {
+        "id": "9199180d-997c-4750-afc0-46871167229c",
+        "data": "deploy site",
+        "parent": "3453c91c-b74f-4720-bfc5-0887c11af048",
+        "status": "Not Started"
+    },
+    {
+        "id": "87c989ef-0e73-45ab-b230-90daa89e46bb",
+        "data": "choose font",
+        "parent": "6d49718b-6a76-48a4-9054-b8f6c636ad3a",
+        "status": "Not Started"
+    },
+    {
+        "id": "ff1c4f93-20a3-40fa-ae36-648adf2f12a8",
+        "data": "design ui",
+        "parent": "1e771a65-6cb5-4a5d-90cf-b3da8fdfc012",
+        "status": "Not Started"
+    }
+]
