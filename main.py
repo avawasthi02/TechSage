@@ -103,24 +103,33 @@ class Goal:
         for child in root.child:
             self.print_goals_subtask(child, slash_count + 1)
 
-    def update_task_status(self, status, task_node_name):
+    def update_task_status(self, task_node_name):
         task_node_name = task_node_name.lower().strip()
-
+        l={'0':'InProgress','1':'Completed'}
+        print(f"select from these options: {l}")
+        choose_from_status =input()
         correct_parent_node = self.ask_for_correct_parent(self.name_index[task_node_name])
-        correct_parent_node.task_status[0] = status
+        correct_parent_node.task_status[0] = l[choose_from_status]
         # self.tree_dict[task_node_name][correct_parent_node].task_status = status
         return
 
-    def bfs_print(self, root):
-        queue = deque([root])
-        result = []
+    def bfs(self, node,action):
+        queue = deque([node])
         while queue:
             current = queue.popleft()
-            result.append(current.data)
+            action(current)
             for child in current.child:
                 queue.append(child)
 
-        print(result)
+        return
+    def dfs(self,node,action):
+        if node is None:
+            return
+        action(node)
+        for i in node.child:
+            self.dfs(i,action)
+
+
 
     def save_to_json(self, filename='tree.json'):
         queue = deque([self.root])
@@ -206,37 +215,39 @@ from itertools import cycle
 
 
 def run_dummy_data_with_input_mock():
-    # main_goal = Goal("Build a personal website")
-    #
-    # tasks = [
-    #     ("Design UI", "Build a personal website"),
-    #     ("Write content", "Build a personal website"),
-    #     ("Design UI", "Write content"),  # duplicate name, different parent
-    #     ("Choose font", "Design UI"),  # Will trigger ask_for_correct_parent
-    #     ("Deploy site", "Build a personal website"),
-    # ]
-    #
-    # # Use cycle to repeat input values infinitely
-    # simulated_inputs = cycle(["0"])
-    #
-    # with patch("builtins.input", side_effect=simulated_inputs):
-    #     for subtask, parent in tasks:
-    #         main_goal.add_subtask(subtask, parent)
-    #
-    # print("\n📌 Final Goal Tree:")
-    # main_goal.print_goals_subtask(main_goal.root, 0)
-    #
-    # # print("\n🧠 All tasks by UUID:")
-    # # for uid, node in main_goal.by_uudi.items():
-    # #     print(f"{uid}: {node.data} (status: {node.task_status[0]})")
-    # # print(f"fdfdfdfdfdfddf------------------")
-    # # print(main_goal.bfs_print(main_goal.root))
-    # #main_goal.update_task_status('In Progress', 'Design UI')
-    # #main_goal.print_goals_subtask(main_goal.root, 0)
+    main_goal = Goal("Build a personal website")
+
+    tasks = [
+        ("Design UI", "Build a personal website"),
+        ("Write content", "Build a personal website"),
+        ("Design UI", "Write content"),  # duplicate name, different parent
+        ("Choose font", "Design UI"),  # Will trigger ask_for_correct_parent
+        ("Deploy site", "Build a personal website"),
+    ]
+
+    # Use cycle to repeat input values infinitely
+    simulated_inputs = cycle(["0"])
+
+    with patch("builtins.input", side_effect=simulated_ inputs):
+        for subtask, parent in tasks:
+            main_goal.add_subtask(subtask, parent)
+
+    print("\n📌 Final Goal Tree:")
+    main_goal.print_goals_subtask(main_goal.root, 0)
+
+    print("\n🧠 All tasks by UUID:")
+    for uid, node in main_goal.by_uudi.items():
+        print(f"{uid}: {node.data} (status: {node.task_status[0]})")
+    print(f"fdfdfdfdfdfddf------------------")
+    #print(main_goal.bfs_print(main_goal.root))
+    #main_goal.update_task_status( 'Design UI')
+    #main_goal.print_goals_subtask(main_goal.root, 0)
+    main_goal.bfs(main_goal.root,lambda node:print(node.data,node.task_status[0]))
+    main_goal.dfs(main_goal.root, lambda node: print(node.data, node.task_status[0]))
     #main_goal.save_to_json()
-    x = Goal("dummy")
-    x.load_from_json()
-    x.print_goals_subtask(x.root,0)
+    # x = Goal("dummy")
+    # x.load_from_json()
+    # x.print_goals_subtask(x.root,0)
     #x = Goal.load_from_json()
     #main_goal = Goal(x.data)
 
